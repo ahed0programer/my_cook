@@ -1,11 +1,14 @@
 from experta import *
+import pandas as pd
+
+recipes = pd.read_csv("recipes.csv")
 
 class Recipe(Fact):
     name = Field(str , True)
     # a set of ingrediants and its amount needed to make this recipe
     ingrediants = Field(list , True)
 
-    # ** Note : if the user requested this recipe for a different number of people from the number specifed for this recipe ,
+    # ** Note : if the user requested this recipe for a different number of people from the number specifed for this recipe /n
     # ** we can calclulate the new ampount of ingrediants needed based on the ratio
     # to tell how many people this recipe enough for 
     enough_for = Field(int , True)
@@ -20,24 +23,26 @@ class ingrediant(Fact):
 # * in the beginneng we shall request the user to enter the ingrediants as facts and store it here 
 class My_ingrediants(Fact):
     ingrediants = Field(list , True)
-    
+
 
 class MyCook_Engine(KnowledgeEngine):
     def __init__(self):
         super().__init__()
 
     @DefFacts()
-    def init_Data():
+    def init_Data(self):
         # ** store the recipes that our system has to suggest
-        yield Recipe(name= "bachamel pasta" , ingridants=["salt" , "bachamel cheese" , "pasta sheets" , "pepper"])
-        yield Recipe(name= "cheeze pizza" , ingridants=["salt" , "flouer" , "butter", "cheeze" , "pepper"]);
-    
-        # TODO : add more recipes like these
+        # get the recipes from a csv file for cleaner code 
+        for i in recipes.index:
+            yield Recipe(name= recipes.loc[i , "name"] , ingrediants=recipes.loc[i , "ingrediants"] , enough_for = recipes.loc[i , "enough_for"])
         
-
+        # // TODO : add more recipes like these
+        # ** you can add more recipes by running the store_trcipes python script ,,,, check it
+        #  TODO : fix the recipes to store the ingrediants as a pair (ingrediant , amount)
+        
     # Rule uesd to handle the suggestion operation
     @Rule()
-    def suggest_recipes():
+    def suggest_recipes(self):
         pass
         # ! dear Luay & Jaafar , this needs to be filled \^_^/   !!!!
         # we rely on you 
@@ -45,7 +50,7 @@ class MyCook_Engine(KnowledgeEngine):
 
     # TODO : idea ! -> we can make the system inference new recipes ..... think about it after finishing the code above ^ !!!
     Rule()
-    def inferance_NewRecipes():
+    def inferance_NewRecipes(self):
         pass
         # ! dear Luay & Jaafar , this needs to be filled \^_^/   !!!!
         # we rely on you 
