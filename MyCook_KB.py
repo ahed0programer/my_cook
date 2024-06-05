@@ -2,7 +2,7 @@ from experta import *
 
 class Recipe(Fact):
     name = Field(str , True)
-    # a set of the ingrediants and its amount to make this recipe
+    # a set of ingrediants and its amount needed to make this recipe
     ingrediants = Field(list , True)
 
     # ** Note : if the user requested this recipe for a different number of people from the number specifed for this recipe ,
@@ -20,6 +20,7 @@ class ingrediant(Fact):
 # * in the beginneng we shall request the user to enter the ingrediants as facts and store it here 
 class My_ingrediants(Fact):
     ingrediants = Field(list , True)
+    
 
 class MyCook_Engine(KnowledgeEngine):
     def __init__(self):
@@ -27,7 +28,7 @@ class MyCook_Engine(KnowledgeEngine):
 
     @DefFacts()
     def init_Data():
-        # ** store the recipes our systems to suggest as facts
+        # ** store the recipes that our system has to suggest
         yield Recipe(name= "bachamel pasta" , ingridants=["salt" , "bachamel cheese" , "pasta sheets" , "pepper"])
         yield Recipe(name= "cheeze pizza" , ingridants=["salt" , "flouer" , "butter", "cheeze" , "pepper"]);
     
@@ -48,5 +49,10 @@ class MyCook_Engine(KnowledgeEngine):
         pass
         # ! dear Luay & Jaafar , this needs to be filled \^_^/   !!!!
         # we rely on you 
+
+
+my_cook = MyCook_Engine()
+my_cook.reset()
+my_cook.run()
 
   
