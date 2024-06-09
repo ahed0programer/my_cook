@@ -28,12 +28,15 @@ class My_ingrediants(Fact):
 class MyCook_Engine(KnowledgeEngine):
     def __init__(self):
         super().__init__()
-
+   
+    # TODO : there is a bug here in this code , run it and you know what is it ...
+    # TODO : try to fix it 
     @DefFacts()
     def init_Data(self):
         # ** store the recipes that our system has to suggest
         # get the recipes from a csv file for cleaner code 
         for i in recipes.index:
+            print(recipes.loc[i , "ingrediants"])
             yield Recipe(name= recipes.loc[i , "name"] , ingrediants=recipes.loc[i , "ingrediants"] , enough_for = recipes.loc[i , "enough_for"])
         
         # // TODO : add more recipes like these
