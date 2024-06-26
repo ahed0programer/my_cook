@@ -1,1 +1,1 @@
-start cmd.exe /k "python engine.py"
+start cmd.exe /k "python main.py"

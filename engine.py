@@ -1,24 +1,6 @@
 from experta import *
 from recipes import recipes
-
-class MyIngredient(Fact):
-    """Info about an ingredient."""
-    pass
-
-class Recipe_Ingredient(Fact):
-    pass
-
-class Recipe(Fact):
-    """Info about an ingredient."""
-    pass
-
-class MealType(Fact):
-    """Info about the meal type (breakfast, lunch, dinner)."""
-    pass
-
-class NumberOfPeople(Fact):
-    """Info about the number of people."""
-    pass
+from myFacts import *
 
 class MealRecommender(KnowledgeEngine):
     recipes=[]
@@ -150,8 +132,3 @@ class MealRecommender(KnowledgeEngine):
                 return f"{total_quantity}"
             except ValueError:
                 return quantity  # In case quantity is not a number
-
-# Instantiate the expert system and run it
-engine = MealRecommender()
-engine.reset()  # Prepare the engine for the execution
-engine.run()  # Run the engine
